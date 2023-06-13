@@ -1,4 +1,7 @@
-﻿namespace Priority.Matrix.Manager.Extensions
+﻿using Contracts;
+using LoggerService;
+
+namespace Priority.Matrix.Manager.Extensions
 {
 	public static class ServiceExtensions
 	{
@@ -15,5 +18,8 @@
 			services.Configure<IISOptions>(options =>
 			{
 			});
+
+		public static void ConfigureLoggerService(this IServiceCollection services) =>
+			services.AddSingleton<ILoggerManager, LoggerManager>();
 	}
 }
