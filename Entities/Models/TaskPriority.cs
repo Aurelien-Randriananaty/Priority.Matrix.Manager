@@ -17,9 +17,9 @@ public class TaskPriority
     //public int UserId { get; set; }
     [Required(ErrorMessage = "Task createdBy is a required field")]
     public int TaskCreatedBy { get; set; }
-    public DateTime TaskToSee { get; set; }
+    public DateTime? TaskToSee { get; set; }
     public DateTime CreatedDate { get; set; }
-    public int Hour { get; set; }
+    public int? Hour { get; set; }
     public string? TaskStatus { get; set; }
     [ForeignKey(nameof(Category))]
     public int CategoryID { get; set; }
