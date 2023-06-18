@@ -9,6 +9,7 @@ namespace Priority.Matrix.Manager
         public MappingProfile()
         {
             CreateMap<Category, CategoryDto>();
+            CreateMap<TaskPriority, TaskPriorityDto>();
         }
     }
 }

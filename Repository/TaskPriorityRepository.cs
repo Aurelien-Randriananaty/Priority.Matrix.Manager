@@ -14,5 +14,14 @@ namespace Repository
         {
             
         }
+
+        public IEnumerable<TaskPriority> GetTaskPriorities(int categoryId, bool trackChange) =>
+            FindByCondition(e => e.CategoryID.Equals(categoryId), trackChange)
+            .OrderBy(e => e.Id)
+            .ToList();
+
+        public TaskPriority GetTaskPriority(int categoryId, int taskPriorityId, bool tackChange) =>
+            FindByCondition(t => t.CategoryID.Equals(categoryId) && t.Id.Equals(taskPriorityId), tackChange)
+            .FirstOrDefault();
     }
 }
