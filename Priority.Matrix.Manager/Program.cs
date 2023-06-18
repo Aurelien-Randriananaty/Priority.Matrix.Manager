@@ -16,7 +16,12 @@ builder.Services.ConfigureServiceManager();
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
 
-builder.Services.AddControllers()
+builder.Services.AddControllers(config =>
+{
+    config.RespectBrowserAcceptHeader = true;
+    config.ReturnHttpNotAcceptable = true;
+}).AddXmlDataContractSerializerFormatters()
+    .AddCustomCSVFormatter()
     .AddApplicationPart(typeof(Priority.Matrix.Manager.Presentation.AssemblyReference).Assembly);
 
 var app = builder.Build();
@@ -33,7 +38,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
-	ForwardedHeaders = ForwardedHeaders.All
+    ForwardedHeaders = ForwardedHeaders.All
 });
 
 app.UseCors("CorsPolicy");

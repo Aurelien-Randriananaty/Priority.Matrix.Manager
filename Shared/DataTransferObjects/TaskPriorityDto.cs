@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public record TaskPriorityDto(
-        int Id,
-        string? TaskTitre,
-        string? TaskDescription,
-        int TaskCreatedBy,
-        DateTime? TaskToSee,
-        DateTime CreatedDate,
-        int? Hour,
-        string? TaskStatus,
-        int CategoryID
-    );
+    //[Serializable]
+    public record TaskPriorityDto
+    {
+        public int Id { get; init; }
+        public string? TaskTitre { get; init; }
+        public string? TaskDescription { get; init; }
+        public int TaskCreatedBy { get; init; }
+        public DateTime? TaskToSee { get; init; }
+        public DateTime CreatedDate { get; init; }
+        public int? Hour { get; init; }
+        public string? TaskStatus { get; init; }
+        public int CategoryID { get; init; }
+    }
 }
