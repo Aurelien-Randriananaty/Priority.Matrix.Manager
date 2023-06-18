@@ -15,5 +15,10 @@ namespace Repository
         {
             
         }
+
+        public IEnumerable<Category> GetAllCategories(bool trackChange) => FindAll(trackChange)
+            .OrderBy(c => c.Id)
+            .ToList();
+
     }
 }

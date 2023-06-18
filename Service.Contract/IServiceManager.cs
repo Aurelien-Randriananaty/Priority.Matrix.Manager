@@ -9,6 +9,7 @@ namespace Service.Contract
     public interface IServiceManager
     {
         ICategoryService CategoryService { get; }
+
         ITaskPriorityService TaskPriorityService { get; }
     }
 }

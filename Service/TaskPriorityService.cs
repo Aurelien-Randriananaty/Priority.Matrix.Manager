@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class TaskPriorityService : ITaskPriorityService
+    internal sealed class TaskPriorityService : ITaskPriorityService
     {
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
