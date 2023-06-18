@@ -18,16 +18,9 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
 
         public IActionResult GetCategories()
         {
-            try
-            {
-                var categories = _service.CategoryService.GetAllCategories(trackChange: false);
+            var categories = _service.CategoryService.GetAllCategories(trackChange: false);
 
-                return Ok(categories);
-            }
-            catch
-            {
-                return StatusCode(500, "Internal server error");
-            }
+            return Ok(categories);
         }
     }
 }

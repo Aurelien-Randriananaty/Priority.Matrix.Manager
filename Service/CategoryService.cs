@@ -27,19 +27,11 @@ namespace Service
 
         public IEnumerable<CategoryDto> GetAllCategories(bool trackChange)
         {
-            try
-            {
-                var categories = _repository.Category.GetAllCategories(trackChange);
-               
-                var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
-               
-                return categoriesDto;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong in the { nameof(GetAllCategories)} service method { ex} ");
-                throw;
-            }
+            var categories = _repository.Category.GetAllCategories(trackChange);
+
+            var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
+
+            return categoriesDto;
         }
     }
 }
