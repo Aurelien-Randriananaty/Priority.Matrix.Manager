@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,10 @@ using Repository;
 namespace Priority.Matrix.Manager.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20230618093522_InitialData")]
+    partial class InitialData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,61 +121,61 @@ namespace Priority.Matrix.Manager.Migrations
                         {
                             Id = 1,
                             CategoryID = 1,
-                            CreatedDate = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Hour = 1,
                             TaskCreatedBy = 1,
                             TaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                             TaskStatus = "To do",
                             TaskTitre = "Title task 1",
-                            TaskToSee = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Local)
+                            TaskToSee = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
                             CategoryID = 2,
-                            CreatedDate = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Hour = 2,
                             TaskCreatedBy = 1,
                             TaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                             TaskStatus = "To do",
                             TaskTitre = "Title task 2",
-                            TaskToSee = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Local)
+                            TaskToSee = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
                             CategoryID = 2,
-                            CreatedDate = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Hour = 3,
                             TaskCreatedBy = 2,
                             TaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                             TaskStatus = "To do",
                             TaskTitre = "Title task 3",
-                            TaskToSee = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Local)
+                            TaskToSee = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4,
                             CategoryID = 3,
-                            CreatedDate = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Hour = 2,
                             TaskCreatedBy = 2,
                             TaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                             TaskStatus = "To do",
                             TaskTitre = "Title task 4",
-                            TaskToSee = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Local)
+                            TaskToSee = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 5,
                             CategoryID = 4,
-                            CreatedDate = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Hour = 2,
                             TaskCreatedBy = 2,
                             TaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                             TaskStatus = "To do",
                             TaskTitre = "Title task 5",
-                            TaskToSee = new DateTime(2023, 6, 18, 0, 0, 0, 0, DateTimeKind.Local)
+                            TaskToSee = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 

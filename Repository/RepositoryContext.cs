@@ -1,5 +1,6 @@
 ﻿using Entities.Models;
 using Microsoft.EntityFrameworkCore;
+using Repository.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,10 @@ namespace Repository
         public DbSet<TaskPriority>? TaskPriorities { get; set; }
         public DbSet<Category>? Categories { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    //base.OnModelCreating(modelBuilder);
-        //    //modelBuilder.Entity<TaskPriority>().HasKey(x => x.Id);
-        //    //modelBuilder.Entity<Category>().HasKey(x => x.Id);
-        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new TaskPriorityConfiguration());
+        }
     }
 }
