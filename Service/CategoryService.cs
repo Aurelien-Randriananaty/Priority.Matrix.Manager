@@ -1,6 +1,8 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
 using Entities.Models;
 using Service.Contract;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +16,24 @@ namespace Service
 
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
+        private readonly IMapper _mapper;
 
-        public CategoryService(IRepositoryManager repository, ILoggerManager logger)
+        public CategoryService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
         {
             _repository = repository;
             _logger = logger;
+            _mapper = mapper;
         }
 
-        public IEnumerable<Category> GetAllCategories(bool trackChange)
+        public IEnumerable<CategoryDto> GetAllCategories(bool trackChange)
         {
             try
             {
                 var categories = _repository.Category.GetAllCategories(trackChange);
-                return categories;
+               
+                var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
+               
+                return categoriesDto;
             }
             catch (Exception ex)
             {
