@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities.Exceptions;
 using Entities.Models;
 using Service.Contract;
 using Shared.DataTransferObjects;
@@ -38,7 +39,8 @@ namespace Service
         {
             var category = _repository.Category.GetCategory(categoryId, trackChange);
 
-            // check if the category is null
+            if (category is null)
+                throw new CategoryNotFoundException(categoryId);
 
             var categoryDto = _mapper.Map<CategoryDto>(category);
 
