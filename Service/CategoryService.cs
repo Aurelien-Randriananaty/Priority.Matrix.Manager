@@ -33,5 +33,16 @@ namespace Service
 
             return categoriesDto;
         }
+
+        public CategoryDto GetCategoryById(int categoryId, bool trackChange)
+        {
+            var category = _repository.Category.GetCategory(categoryId, trackChange);
+
+            // check if the category is null
+
+            var categoryDto = _mapper.Map<CategoryDto>(category);
+
+            return categoryDto;
+        }
     }
 }

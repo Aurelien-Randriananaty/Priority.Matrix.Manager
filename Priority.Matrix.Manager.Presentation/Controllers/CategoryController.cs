@@ -16,11 +16,24 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
 
         public CategoryController(IServiceManager service) => _service = service;
 
+        /// <summary>
+        /// Get all Category
+        /// </summary>
+        /// <returns>retun all category</returns>
+        [HttpGet(Name = "CetCompanies")]
         public IActionResult GetCategories()
         {
             var categories = _service.CategoryService.GetAllCategories(trackChange: false);
 
             return Ok(categories);
+        }
+
+        [HttpGet("{id:int}")]
+        public IActionResult GetCategory(int id)
+        {
+            var category = _service.CategoryService.GetCategoryById(id, trackChange: false);
+
+            return Ok(category);
         }
     }
 }

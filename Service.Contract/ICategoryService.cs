@@ -5,5 +5,7 @@ namespace Service.Contract
     public interface ICategoryService
     {        
         IEnumerable<CategoryDto> GetAllCategories(bool trackChange);
+
+        CategoryDto GetCategoryById(int categoryId, bool trackChange);
     }
 }

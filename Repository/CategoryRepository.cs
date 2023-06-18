@@ -20,5 +20,8 @@ namespace Repository
             .OrderBy(c => c.Id)
             .ToList();
 
+        public Category GetCategory(int categoryId, bool trackChange) => 
+            FindByCondition(c => c.Id.Equals(categoryId), trackChange)
+            .SingleOrDefault();
     }
 }
