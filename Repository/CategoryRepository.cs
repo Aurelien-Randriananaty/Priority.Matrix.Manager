@@ -16,6 +16,8 @@ namespace Repository
             
         }
 
+        public void CreateCategory(Category category) => Create(category);
+
         public IEnumerable<Category> GetAllCategories(bool trackChange) => FindAll(trackChange)
             .OrderBy(c => c.Id)
             .ToList();

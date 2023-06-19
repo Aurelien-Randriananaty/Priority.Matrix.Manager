@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Contract;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,8 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         /// <summary>
         /// Get all Category
         /// </summary>
-        /// <returns>retun all category</returns>
-        [HttpGet(Name = "CetCompanies")]
+        /// <returns>retun all categories</returns>
+        [HttpGet(Name = "Categories")]
         public IActionResult GetCategories()
         {
             var categories = _service.CategoryService.GetAllCategories(trackChange: false);
@@ -28,12 +29,28 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
             return Ok(categories);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "CategoryById")]
         public IActionResult GetCategory(int id)
         {
             var category = _service.CategoryService.GetCategoryById(id, trackChange: false);
 
             return Ok(category);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns>return category created</returns>
+        [HttpPost]
+        public IActionResult CreateCategory([FromBody] CategoryForCreationDto category)
+        {
+            if (category is null)
+                return BadRequest("CompanyForCreationDto object is null");
+
+            var createdCategory = _service.CategoryService.CreateCategory(category);
+
+            return CreatedAtRoute("CategoryById", new {id = createdCategory.Id}, createdCategory);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Priority.Matrix.Manager
         {
             CreateMap<Category, CategoryDto>();
             CreateMap<TaskPriority, TaskPriorityDto>();
+            CreateMap<CategoryForCreationDto, Category>();
         }
     }
 }

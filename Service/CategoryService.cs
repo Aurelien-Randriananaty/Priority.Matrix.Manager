@@ -26,6 +26,17 @@ namespace Service
             _mapper = mapper;
         }
 
+        public CategoryDto  CreateCategory(CategoryForCreationDto category)
+        {
+            var categoryEntity = _mapper.Map<Category>(category);
+            _repository.Category.CreateCategory(categoryEntity);
+            _repository.Save();
+
+            var companyToReturn = _mapper.Map<CategoryDto>(categoryEntity);
+
+            return companyToReturn;
+        }
+
         public IEnumerable<CategoryDto> GetAllCategories(bool trackChange)
         {
             var categories = _repository.Category.GetAllCategories(trackChange);
