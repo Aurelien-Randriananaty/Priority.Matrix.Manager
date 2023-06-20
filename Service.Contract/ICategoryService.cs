@@ -11,5 +11,7 @@ namespace Service.Contract
         CategoryDto CreateCategory(CategoryForCreationDto categoryDto);
 
         void DeleteCategory(int categoryId, bool trackChanges);
+
+        void UpdateCategory(int categoryId, CategoryForUpdateDto category, bool trackChanges);
     }
 }

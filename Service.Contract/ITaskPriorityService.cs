@@ -15,6 +15,8 @@ namespace Service.Contract
 
         TaskPriorityDto CreateTaskPriorityForCategory(int categoryId, TaskPriorityForCreationDto taskPriorityForCreation, bool trackChanges);
 
-        void DeleteTaskPriorityForCategory(int CategoryId,  int id, bool trackChanges);
+        void DeleteTaskPriorityForCategory(int CategoryId, int id, bool trackChanges);
+
+        void UpdateTaskPriorityForCategory(int categoryId, int id, TaskPriorityForUpdateDto taskPriorityForUpdate, bool categoryTrackChanges, bool TaskPriorityTrackChanges);
     }
 }

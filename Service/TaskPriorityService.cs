@@ -82,5 +82,19 @@ namespace Service
             _repository.TaskPriority.DeleteTaskPriority(taskPriorityForCategory);
             _repository.Save();
         }
+
+        public void UpdateTaskPriorityForCategory(int categoryId, int id, TaskPriorityForUpdateDto taskPriorityForUpdate, bool categoryTrackChanges, bool TaskPriorityTrackChanges)
+        {
+            var category = _repository.Category.GetCategory(categoryId, categoryTrackChanges);
+            if(category is null)
+                throw new CategoryNotFoundException(categoryId);
+
+            var taskPriorityEntity = _repository.TaskPriority.GetTaskPriority(categoryId, id, TaskPriorityTrackChanges);
+            if(taskPriorityEntity is null)
+                throw new TaskPriorityNotFoundException(categoryId);
+
+            _mapper.Map(taskPriorityForUpdate, taskPriorityEntity);
+            _repository.Save();
+        }
     }
 }

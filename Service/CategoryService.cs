@@ -67,5 +67,15 @@ namespace Service
 
             return categoryDto;
         }
+
+        public void UpdateCategory(int categoryId, CategoryForUpdateDto categoryForUpdateDto, bool trackChanges)
+        {
+            var categoryEntity = _repository.Category.GetCategory(categoryId, trackChanges);
+            if (categoryEntity is null)
+                throw new CategoryNotFoundException(categoryId);
+
+            _mapper.Map(categoryForUpdateDto, categoryEntity);
+            _repository.Save();
+        }
     }
 }

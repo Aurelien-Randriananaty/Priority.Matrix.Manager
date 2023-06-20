@@ -12,6 +12,8 @@ namespace Priority.Matrix.Manager
             CreateMap<TaskPriority, TaskPriorityDto>();
             CreateMap<CategoryForCreationDto, Category>();
             CreateMap<TaskPriorityForCreationDto, TaskPriority>();
+            CreateMap<TaskPriorityForUpdateDto, TaskPriority>();
+            CreateMap<CategoryForUpdateDto, Category>();
         }
     }
 }

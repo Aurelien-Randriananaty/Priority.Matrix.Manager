@@ -41,7 +41,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         public IActionResult CreateCategory([FromBody] CategoryForCreationDto category)
         {
             if (category == null)
-                return BadRequest("CompanyForCreationDto object is null");
+                return BadRequest("CategoryForCreationDto object is null");
 
             var createdCategory = _service.CategoryService.CreateCategory(category);
 
@@ -52,6 +52,17 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         public IActionResult DeleteCategory(int id)
         {
             _service.CategoryService.DeleteCategory(id, trackChanges: false);
+
+            return NoContent();
+        }
+
+        [HttpPut("{id:int}")]
+        public IActionResult UpdateCategory(int id, [FromBody] CategoryForUpdateDto category)
+        {
+            if (category is null)
+                return BadRequest("CategoryForUpdateDto object is null");
+
+            _service.CategoryService.UpdateCategory(id, category, trackChanges: true);
 
             return NoContent();
         }

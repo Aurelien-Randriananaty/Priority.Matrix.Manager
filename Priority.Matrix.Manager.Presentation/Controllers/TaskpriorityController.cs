@@ -65,6 +65,17 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
            
             return NoContent();
         }
+
+        [HttpPut("{id:int}")]
+        public IActionResult UpdateTaskPriorityForCategory(int categoryId, int id, [FromBody] TaskPriorityForUpdateDto taskPriority)
+        {
+            if (taskPriority is null)
+                return BadRequest("EmployeeForUpdateDto object is null");
+
+            _service.TaskPriorityService.UpdateTaskPriorityForCategory(categoryId, id, taskPriority, categoryTrackChanges: false, TaskPriorityTrackChanges: true);
+
+            return NoContent();
+        }
     }
 
 }
