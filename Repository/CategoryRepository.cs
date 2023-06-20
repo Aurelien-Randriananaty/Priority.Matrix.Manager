@@ -25,6 +25,10 @@ namespace Repository
             .OrderBy(c => c.Id)
             .ToList();
 
+        public IEnumerable<Category> GetByIds(IEnumerable<int> ids, bool trackChanges) =>
+            FindByCondition(x => ids.Contains(x.Id), trackChanges)
+            .ToList();
+
         public Category GetCategory(int categoryId, bool trackChange) => 
             FindByCondition(c => c.Id.Equals(categoryId), trackChange)
             .SingleOrDefault();

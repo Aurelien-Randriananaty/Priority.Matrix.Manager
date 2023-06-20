@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shared.DataTransferObjects
+﻿namespace Shared.DataTransferObjects
 {
-    public record CategoryForUpdateDto(string CategoryName, string CategoryCode);
+    public record CategoryForUpdateDto : CategoryForManipulationDto;
 }

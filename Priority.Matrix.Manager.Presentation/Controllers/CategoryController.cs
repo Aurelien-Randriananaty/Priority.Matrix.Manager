@@ -24,12 +24,25 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
             return Ok(categories);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id:int}", Name = "CategoryById")]
         public IActionResult GetCategory(int id)
         {
             var category = _service.CategoryService.GetCategoryById(id, trackChanges: false);
 
             return Ok(category);
+        }
+
+        [HttpGet("CollectionExtensions/{ids}", Name = "CompanyCollection")]
+        public IActionResult GetCategoryCollection(IEnumerable<int> ids)
+        {
+            var categories = _service.CategoryService.GetByIds(ids, trackChanges: false);
+
+            return Ok(categories);
         }
 
         /// <summary>

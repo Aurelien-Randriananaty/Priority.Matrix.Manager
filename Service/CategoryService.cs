@@ -56,6 +56,20 @@ namespace Service
             return categoriesDto;
         }
 
+        public IEnumerable<CategoryDto> GetByIds(IEnumerable<int> ids, bool trackChanges)
+        {
+            if(ids is null)
+                throw new IdParametersBadRequestException();
+
+            var categoryEntities = _repository.Category.GetByIds(ids, trackChanges);
+            if(ids.Count() != categoryEntities.Count())
+                throw new CollectionByIdsBadRequestException();
+
+            var categoryToReturn = _mapper.Map<IEnumerable<CategoryDto>>(categoryEntities);
+
+            return categoryToReturn;
+        }
+
         public CategoryDto GetCategoryById(int categoryId, bool trackChanges)
         {
             var category = _repository.Category.GetCategory(categoryId, trackChanges);

@@ -6,6 +6,8 @@ namespace Service.Contract
     {        
         IEnumerable<CategoryDto> GetAllCategories(bool trackChanges);
 
+        IEnumerable<CategoryDto> GetByIds(IEnumerable<int> ids, bool trackChanges);
+
         CategoryDto GetCategoryById(int categoryId, bool trackChanges);
 
         CategoryDto CreateCategory(CategoryForCreationDto categoryDto);

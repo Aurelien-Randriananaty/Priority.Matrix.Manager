@@ -49,6 +49,9 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
             if (taskPriority is null)
                 return BadRequest("TaskPriorityForCreationDto ogject is nulle");
 
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+
             var taskPriorityToReturn = _service.TaskPriorityService.CreateTaskPriorityForCategory(categoryId, taskPriority, trackChanges: false);
 
             return CreatedAtRoute("GetTaskPriorityForCategory", new
@@ -71,6 +74,9 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         {
             if (taskPriority is null)
                 return BadRequest("EmployeeForUpdateDto object is null");
+
+            if(!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
 
             _service.TaskPriorityService.UpdateTaskPriorityForCategory(categoryId, id, taskPriority, categoryTrackChanges: false, TaskPriorityTrackChanges: true);
 
