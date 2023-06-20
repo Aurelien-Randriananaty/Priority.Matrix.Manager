@@ -37,18 +37,18 @@ namespace Service
             return companyToReturn;
         }
 
-        public IEnumerable<CategoryDto> GetAllCategories(bool trackChange)
+        public IEnumerable<CategoryDto> GetAllCategories(bool trackChanges)
         {
-            var categories = _repository.Category.GetAllCategories(trackChange);
+            var categories = _repository.Category.GetAllCategories(trackChanges);
 
             var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
 
             return categoriesDto;
         }
 
-        public CategoryDto GetCategoryById(int categoryId, bool trackChange)
+        public CategoryDto GetCategoryById(int categoryId, bool trackChanges)
         {
-            var category = _repository.Category.GetCategory(categoryId, trackChange);
+            var category = _repository.Category.GetCategory(categoryId, trackChanges);
 
             if (category is null)
                 throw new CategoryNotFoundException(categoryId);

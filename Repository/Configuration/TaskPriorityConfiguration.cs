@@ -18,7 +18,7 @@ namespace Repository.Configuration
                     new TaskPriority
                     {
                         Id = 1,
-                        TaskTitre = "Title task 1",
+                        TaskTitle = "Title task 1",
                         TaskDescription = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                         TaskStatus = "To do",
                         TaskCreatedBy = 1,
@@ -30,7 +30,7 @@ namespace Repository.Configuration
                     new TaskPriority
                     {
                         Id= 2,
-                        TaskTitre = "Title task 2",
+                        TaskTitle = "Title task 2",
                         TaskDescription = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                         TaskStatus = "To do",
                         TaskCreatedBy = 1,
@@ -42,7 +42,7 @@ namespace Repository.Configuration
                     new TaskPriority
                     {
                         Id= 3,
-                        TaskTitre = "Title task 3",
+                        TaskTitle = "Title task 3",
                         TaskDescription = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                         TaskStatus = "To do",
                         TaskCreatedBy = 2,
@@ -54,7 +54,7 @@ namespace Repository.Configuration
                     new TaskPriority
                     {
                         Id = 4,
-                        TaskTitre = "Title task 4",
+                        TaskTitle = "Title task 4",
                         TaskDescription = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                         TaskStatus = "To do",
                         TaskCreatedBy = 2,
@@ -66,7 +66,7 @@ namespace Repository.Configuration
                     new TaskPriority
                     {
                         Id = 5,
-                        TaskTitre = "Title task 5",
+                        TaskTitle = "Title task 5",
                         TaskDescription = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                         TaskStatus = "To do",
                         TaskCreatedBy = 2,

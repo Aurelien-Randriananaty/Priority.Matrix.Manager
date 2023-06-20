@@ -9,8 +9,10 @@ namespace Service.Contract
 {
     public interface ITaskPriorityService
     {
-        IEnumerable<TaskPriorityDto> GetTaskPriorities(int categoryId, bool tackChange);
+        IEnumerable<TaskPriorityDto> GetTaskPriorities(int categoryId, bool trackChanges);
 
-        TaskPriorityDto GetTaskPriority(int categoryId, int taskPriorityId, bool trackChange);
+        TaskPriorityDto GetTaskPriority(int categoryId, int taskPriorityId, bool trackChanges);
+
+        TaskPriorityDto CreateTaskPriorityForCategory(int categoryId, TaskPriorityForCreationDto taskPriorityForCreation, bool trackChanges);
     }
 }

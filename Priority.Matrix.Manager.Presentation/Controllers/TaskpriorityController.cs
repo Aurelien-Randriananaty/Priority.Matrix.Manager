@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Contract;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,19 +24,39 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         [HttpGet]
         public IActionResult GetTaskPriorityForCategory(int categoryId)
         {
-            var taskPriorityies = _service.TaskPriorityService.GetTaskPriorities(categoryId, tackChange: false);
+            var taskPriorityies = _service.TaskPriorityService.GetTaskPriorities(categoryId, trackChanges: false);
 
             return Ok(taskPriorityies);
         }
 
-        [HttpGet("{id:int}")]
-        public IActionResult GetTaskPriorityForCategory(int categoryId, int id) 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id:int}", Name = "GetTaskPriorityForCategory")]
+        public IActionResult GetTaskPriorityForCategory(int categoryId, int id)
         {
-            var taskPriority = _service.TaskPriorityService.GetTaskPriority(categoryId, id, trackChange: false);
+            var taskPriority = _service.TaskPriorityService.GetTaskPriority(categoryId, id, trackChanges: false);
 
             return Ok(taskPriority);
         }
-    }
 
+        [HttpPost]
+        public IActionResult CreateTaskPriorityForCategory(int categoryId, [FromBody] TaskPriorityForCreationDto taskPriority)
+        {
+            if (taskPriority is null)
+                return BadRequest("TaskPriorityForCreationDto ogject is nulle");
+
+            var taskPriorityToReturn = _service.TaskPriorityService.CreateTaskPriorityForCategory(categoryId, taskPriority, trackChanges: false);
+
+            return CreatedAtRoute("GetTaskPriorityForCategory", new
+            {
+                categoryId,
+                id = taskPriorityToReturn.Id
+            }, taskPriorityToReturn);
+        }
+    }
 
 }

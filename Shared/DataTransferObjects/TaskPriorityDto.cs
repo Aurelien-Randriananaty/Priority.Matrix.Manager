@@ -10,7 +10,7 @@ namespace Shared.DataTransferObjects
     public record TaskPriorityDto
     {
         public int Id { get; init; }
-        public string? TaskTitre { get; init; }
+        public string? TaskTitle { get; init; }
         public string? TaskDescription { get; init; }
         public int TaskCreatedBy { get; init; }
         public DateTime? TaskToSee { get; init; }

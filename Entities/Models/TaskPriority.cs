@@ -10,7 +10,7 @@ public class TaskPriority
     public int Id { get; set; }
     [Required(ErrorMessage = "Task titre is a required field")]
     [MaxLength(60, ErrorMessage = "Maximum length for the titre is 60 characters")]
-    public string? TaskTitre { get; set; }
+    public string? TaskTitle { get; set; }
     [MaxLength(255, ErrorMessage = "Maximum length for the titre is 255 characters")]
     public string? TaskDescription { get; set; }
     // TO DO: add proprity user to complice this task
