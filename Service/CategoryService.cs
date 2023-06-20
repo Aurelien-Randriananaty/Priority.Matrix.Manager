@@ -37,6 +37,16 @@ namespace Service
             return companyToReturn;
         }
 
+        public void DeleteCategory(int categoryId, bool trackChanges)
+        {
+            var category = _repository.Category.GetCategory(categoryId, trackChanges);
+            if (category == null) 
+                throw new CategoryNotFoundException(categoryId);
+
+            _repository.Category.DeleteCategory(category);
+            _repository.Save();
+        }
+
         public IEnumerable<CategoryDto> GetAllCategories(bool trackChanges)
         {
             var categories = _repository.Category.GetAllCategories(trackChanges);

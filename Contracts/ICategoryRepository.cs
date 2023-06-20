@@ -10,8 +10,11 @@ namespace Contracts
     public interface ICategoryRepository
     {
         IEnumerable<Category> GetAllCategories(bool trackChange);
+
         Category GetCategory(int categoryId, bool trackChange);
 
         void CreateCategory(Category category);
+
+        void DeleteCategory(Category category);
     }
 }

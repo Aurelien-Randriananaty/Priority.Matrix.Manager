@@ -12,13 +12,7 @@ namespace Repository
     {
         public TaskPriorityRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
-            
-        }
 
-        public void CreateTaskPriorityForCategory(int categoryId, TaskPriority taskPriority)
-        {
-            taskPriority.CategoryID = categoryId;
-            Create(taskPriority);
         }
 
         public IEnumerable<TaskPriority> GetTaskPriorities(int categoryId, bool trackChanges) =>
@@ -29,5 +23,13 @@ namespace Repository
         public TaskPriority GetTaskPriority(int categoryId, int taskPriorityId, bool trackChanges) =>
             FindByCondition(t => t.CategoryID.Equals(categoryId) && t.Id.Equals(taskPriorityId), trackChanges)
             .FirstOrDefault();
+
+        public void CreateTaskPriorityForCategory(int categoryId, TaskPriority taskPriority)
+        {
+            taskPriority.CategoryID = categoryId;
+            Create(taskPriority);
+        }
+
+        public void DeleteTaskPriority(TaskPriority taskPriority) => Delete(taskPriority);
     }
 }

@@ -47,5 +47,13 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
 
             return CreatedAtRoute("CategoryById", new {id = createdCategory.Id}, createdCategory);
         }
+
+        [HttpDelete("{id:int}")]
+        public IActionResult DeleteCategory(int id)
+        {
+            _service.CategoryService.DeleteCategory(id, trackChanges: false);
+
+            return NoContent();
+        }
     }
 }

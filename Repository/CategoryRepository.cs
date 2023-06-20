@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +18,8 @@ namespace Repository
         }
 
         public void CreateCategory(Category category) => Create(category);
+
+        public void DeleteCategory(Category category) => Delete(category);
 
         public IEnumerable<Category> GetAllCategories(bool trackChange) => FindAll(trackChange)
             .OrderBy(c => c.Id)

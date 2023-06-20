@@ -68,5 +68,19 @@ namespace Service
 
             return emplyeeToReturn;
         }
+
+        public void DeleteTaskPriorityForCategory(int CategoryId, int id, bool trackChanges)
+        {
+            var categry = _repository.Category.GetCategory(CategoryId, trackChanges);
+            if(categry is null)
+                throw new CategoryNotFoundException(CategoryId);
+
+            var taskPriorityForCategory = _repository.TaskPriority.GetTaskPriority(CategoryId, id, trackChanges);
+            if(taskPriorityForCategory is null)
+                throw new TaskPriorityNotFoundException(CategoryId);
+
+            _repository.TaskPriority.DeleteTaskPriority(taskPriorityForCategory);
+            _repository.Save();
+        }
     }
 }

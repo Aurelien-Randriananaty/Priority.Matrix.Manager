@@ -9,5 +9,7 @@ namespace Service.Contract
         CategoryDto GetCategoryById(int categoryId, bool trackChanges);
 
         CategoryDto CreateCategory(CategoryForCreationDto categoryDto);
+
+        void DeleteCategory(int categoryId, bool trackChanges);
     }
 }

@@ -57,6 +57,14 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
                 id = taskPriorityToReturn.Id
             }, taskPriorityToReturn);
         }
+
+        [HttpDelete("{id:int}")]
+        public IActionResult DeteleTaskPriorityForCategory(int categoryId, int id)
+        {
+            _service.TaskPriorityService.DeleteTaskPriorityForCategory(categoryId, id, trackChanges: true);
+           
+            return NoContent();
+        }
     }
 
 }

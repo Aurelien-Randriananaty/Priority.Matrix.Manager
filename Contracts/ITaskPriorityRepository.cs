@@ -14,5 +14,7 @@ namespace Contracts
         TaskPriority GetTaskPriority (int categoryId, int taskPriorityId, bool tackChanges);
 
         void CreateTaskPriorityForCategory(int  categoryId, TaskPriority taskPriority);
+
+        void DeleteTaskPriority(TaskPriority taskPriority);
     }
 }
