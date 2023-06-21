@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Priority.Matrix.Manager.Presentation.ActionFilters;
 using Service.Contract;
 using Shared.DataTransferObjects;
 
@@ -51,14 +52,9 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         /// <param name="category"></param>
         /// <returns>return category created</returns>
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateCategory([FromBody] CategoryForCreationDto category)
         {
-            if (category == null)
-                return BadRequest("CategoryForCreationDto object is null");
-
-            if(!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
-
             var createdCategory = await _service.CategoryService.CreateCategoryAsync(category);
 
             return CreatedAtRoute("CategoryById", new {id = createdCategory.Id}, createdCategory);
@@ -73,14 +69,9 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         }
 
         [HttpPut("{id:int}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryForUpdateDto category)
         {
-            if (category is null)
-                return BadRequest("CategoryForUpdateDto object is null");
-
-            if (!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
-
             await _service.CategoryService.UpdateCategoryAsync(id, category, trackChanges: true);
 
             return NoContent();

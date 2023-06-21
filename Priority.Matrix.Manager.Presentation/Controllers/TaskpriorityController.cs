@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Priority.Matrix.Manager.Presentation.ActionFilters;
 using Service.Contract;
 using Shared.DataTransferObjects;
 using System;
@@ -44,14 +45,9 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateTaskPriorityForCategory(int categoryId, [FromBody] TaskPriorityForCreationDto taskPriority)
         {
-            if (taskPriority is null)
-                return BadRequest("TaskPriorityForCreationDto ogject is nulle");
-
-            if (!ModelState.IsValid)
-                return UnprocessableEntity(ModelState);
-
             var taskPriorityToReturn = await _service.TaskPriorityService.CreateTaskPriorityForCategoryAsync(categoryId, taskPriority, trackChanges: false);
 
             return CreatedAtRoute("GetTaskPriorityForCategory", new
@@ -70,6 +66,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         }
 
         [HttpPut("{id:int}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateTaskPriorityForCategory(int categoryId, int id, [FromBody] TaskPriorityForUpdateDto taskPriority)
         {
             if (taskPriority is null)

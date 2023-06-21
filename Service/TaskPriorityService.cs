@@ -27,9 +27,7 @@ namespace Service
 
         public async Task<IEnumerable<TaskPriorityDto>> GetTaskPrioritiesAsync(int categoryId, bool trackChanges)
         {
-            var taskPriorities = await _repository.Category.GetCategoryAsync(categoryId, trackChanges);
-            if (taskPriorities is null) 
-                throw new CategoryNotFoundException(categoryId);
+            await CheckIfCategoryExists(categoryId, trackChanges);
 
             var taskPriorityFromDb = await _repository.TaskPriority.GetTaskPrioritiesAsync(categoryId, trackChanges);
 
@@ -40,13 +38,9 @@ namespace Service
 
         public async Task<TaskPriorityDto> GetTaskPriorityAsync(int categoryId, int taskPriorityId, bool trackChanges)
         {
-            var category = await _repository.Category.GetCategoryAsync(categoryId, trackChanges);
-            if (category is null)
-                throw new CategoryNotFoundException(categoryId);
+            await CheckIfCategoryExists(categoryId, trackChanges);
 
-            var taskPriorityDb = await _repository.TaskPriority.GetTaskPriorityAsync(categoryId, taskPriorityId, trackChanges);
-            if(taskPriorityDb is null)
-                throw new TaskPriorityNotFoundException(taskPriorityId);
+            var taskPriorityDb = await GetTaskPriorityForCategoryAndCheckIfExists(categoryId, taskPriorityId, trackChanges);
 
             var taskPriorityDto = _mapper.Map<TaskPriorityDto>(taskPriorityDb);
 
@@ -55,9 +49,7 @@ namespace Service
 
         public async Task<TaskPriorityDto> CreateTaskPriorityForCategoryAsync(int categoryId, TaskPriorityForCreationDto taskPriorityForCreation, bool trackChanges)
         {
-            var category = await _repository.Category.GetCategoryAsync(categoryId, trackChanges);
-            if(category is null) 
-                throw new CategoryNotFoundException(categoryId);
+            await CheckIfCategoryExists(categoryId, trackChanges);
 
             var taskPriorityEntity = _mapper.Map<TaskPriority>(taskPriorityForCreation);
 
@@ -71,13 +63,9 @@ namespace Service
 
         public async Task DeleteTaskPriorityForCategoryAsync(int CategoryId, int id, bool trackChanges)
         {
-            var categry = await _repository.Category.GetCategoryAsync(CategoryId, trackChanges);
-            if(categry is null)
-                throw new CategoryNotFoundException(CategoryId);
+           await CheckIfCategoryExists(CategoryId, trackChanges);
 
-            var taskPriorityForCategory = await _repository.TaskPriority.GetTaskPriorityAsync(CategoryId, id, trackChanges);
-            if(taskPriorityForCategory is null)
-                throw new TaskPriorityNotFoundException(CategoryId);
+            var taskPriorityForCategory = await GetTaskPriorityForCategoryAndCheckIfExists(CategoryId, id, trackChanges);
 
             _repository.TaskPriority.DeleteTaskPriority(taskPriorityForCategory);
             await _repository.SaveAsync();
@@ -85,16 +73,28 @@ namespace Service
 
         public async Task UpdateTaskPriorityForCategoryAsync(int categoryId, int id, TaskPriorityForUpdateDto taskPriorityForUpdate, bool categoryTrackChanges, bool TaskPriorityTrackChanges)
         {
-            var category = await _repository.Category.GetCategoryAsync(categoryId, categoryTrackChanges);
-            if(category is null)
-                throw new CategoryNotFoundException(categoryId);
+            await CheckIfCategoryExists(categoryId, categoryTrackChanges);
 
-            var taskPriorityEntity = await _repository.TaskPriority.GetTaskPriorityAsync(categoryId, id, TaskPriorityTrackChanges);
-            if(taskPriorityEntity is null)
-                throw new TaskPriorityNotFoundException(categoryId);
+            var taskPriorityEntity = await GetTaskPriorityForCategoryAndCheckIfExists(categoryId, id, TaskPriorityTrackChanges);
 
             _mapper.Map(taskPriorityForUpdate, taskPriorityEntity);
             await _repository.SaveAsync();
+        }
+
+        private async Task CheckIfCategoryExists(int categoryId, bool trackChanges)
+        {
+            var category = await _repository.Category.GetCategoryAsync(categoryId, trackChanges);
+            if (category is null)
+                throw new CategoryNotFoundException(categoryId);
+        }
+
+        private async Task<TaskPriority> GetTaskPriorityForCategoryAndCheckIfExists(int categoryId, int id, bool TaskPriorityTrackChanges)
+        {
+            var taskPriorityEntity = await _repository.TaskPriority.GetTaskPriorityAsync(categoryId, id, TaskPriorityTrackChanges);
+            if (taskPriorityEntity is null)
+                throw new TaskPriorityNotFoundException(categoryId);
+
+            return taskPriorityEntity;
         }
     }
 }
