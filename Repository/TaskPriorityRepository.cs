@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
+using Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,18 @@ namespace Repository
 
         }
 
-        public async Task<IEnumerable<TaskPriority>> GetTaskPrioritiesAsync(int categoryId, bool trackChanges) =>
-            await FindByCondition(e => e.CategoryID.Equals(categoryId), trackChanges)
+        public async Task<PagedList<TaskPriority>> GetTaskPrioritiesAsync(int categoryId, TaskPriorityParameters taskPriorityParameters,bool trackChanges)
+        {
+           var taskPriorities = await FindByCondition(e => e.CategoryID.Equals(categoryId), trackChanges)
             .OrderBy(e => e.Id)
             .ToListAsync();
+
+            return PagedList<TaskPriority>.ToPagedList(
+                taskPriorities, 
+                taskPriorityParameters.PageNumber, 
+                taskPriorityParameters.PageSize);
+
+        }
 
         public async Task<TaskPriority> GetTaskPriorityAsync(int categoryId, int taskPriorityId, bool trackChanges) =>
             await FindByCondition(t => t.CategoryID.Equals(categoryId) && t.Id.Equals(taskPriorityId), trackChanges)

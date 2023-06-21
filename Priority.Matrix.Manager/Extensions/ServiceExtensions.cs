@@ -15,7 +15,8 @@ namespace Priority.Matrix.Manager.Extensions
                 options.AddPolicy("CorsPolicy", builder =>
                 builder.AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader());
+                .AllowAnyHeader()
+                .WithExposedHeaders("X-Pagination"));
             });
 
         public static void ConfigureIISIntegration(this IServiceCollection services) =>
@@ -37,7 +38,7 @@ namespace Priority.Matrix.Manager.Extensions
                 opts.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
 
         public static IMvcBuilder AddCustomCSVFormatter(this IMvcBuilder builder) =>
-            builder.AddMvcOptions(config => 
+            builder.AddMvcOptions(config =>
                 config.OutputFormatters.Add(new CsvOutputFormatter()));
     }
 }

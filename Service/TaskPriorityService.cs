@@ -4,6 +4,7 @@ using Entities.Exceptions;
 using Entities.Models;
 using Service.Contract;
 using Shared.DataTransferObjects;
+using Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,15 +26,15 @@ namespace Service
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TaskPriorityDto>> GetTaskPrioritiesAsync(int categoryId, bool trackChanges)
+        public async Task<(IEnumerable<TaskPriorityDto> taskPriorities, MetaData metaData)> GetTaskPrioritiesAsync(int categoryId, TaskPriorityParameters taskPriorityParameters,bool trackChanges)
         {
             await CheckIfCategoryExists(categoryId, trackChanges);
 
-            var taskPriorityFromDb = await _repository.TaskPriority.GetTaskPrioritiesAsync(categoryId, trackChanges);
+            var taskPrioritiesWithMetaData = await _repository.TaskPriority.GetTaskPrioritiesAsync(categoryId, taskPriorityParameters,trackChanges);
 
-            var taskPriorityDto = _mapper.Map<IEnumerable<TaskPriorityDto>>(taskPriorityFromDb);
+            var taskPriorityDto = _mapper.Map<IEnumerable<TaskPriorityDto>>(taskPrioritiesWithMetaData);
 
-            return taskPriorityDto;
+            return (taskPriorities: taskPriorityDto, metaData: taskPrioritiesWithMetaData.MetaData);
         }
 
         public async Task<TaskPriorityDto> GetTaskPriorityAsync(int categoryId, int taskPriorityId, bool trackChanges)

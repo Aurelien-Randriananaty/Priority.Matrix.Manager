@@ -2,10 +2,12 @@
 using Priority.Matrix.Manager.Presentation.ActionFilters;
 using Service.Contract;
 using Shared.DataTransferObjects;
+using Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Priority.Matrix.Manager.Presentation.Controllers
@@ -23,11 +25,13 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         /// <param name="categoryId"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetTaskPriorityForCategory(int categoryId)
+        public async Task<IActionResult> GetTaskPrioritiesForCategory(int categoryId, [FromQuery] TaskPriorityParameters taskPriorityParameters)
         {
-            var taskPriorityies = await _service.TaskPriorityService.GetTaskPrioritiesAsync(categoryId, trackChanges: false);
+            var pagesResult = await _service.TaskPriorityService.GetTaskPrioritiesAsync(categoryId, taskPriorityParameters, trackChanges: false);
 
-            return Ok(taskPriorityies);
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagesResult.metaData));
+
+            return Ok(pagesResult.taskPriorities);
         }
 
         /// <summary>
