@@ -9,9 +9,9 @@ namespace Contracts
 {
     public interface ITaskPriorityRepository
     {
-        IEnumerable<TaskPriority> GetTaskPriorities(int categoryId, bool trackChanges);
+        Task<IEnumerable<TaskPriority>> GetTaskPrioritiesAsync(int categoryId, bool trackChanges);
 
-        TaskPriority GetTaskPriority (int categoryId, int taskPriorityId, bool tackChanges);
+        Task<TaskPriority> GetTaskPriorityAsync(int categoryId, int taskPriorityId, bool tackChanges);
 
         void CreateTaskPriorityForCategory(int  categoryId, TaskPriority taskPriority);
 

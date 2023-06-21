@@ -9,14 +9,14 @@ namespace Service.Contract
 {
     public interface ITaskPriorityService
     {
-        IEnumerable<TaskPriorityDto> GetTaskPriorities(int categoryId, bool trackChanges);
+        Task<IEnumerable<TaskPriorityDto>> GetTaskPrioritiesAsync(int categoryId, bool trackChanges);
 
-        TaskPriorityDto GetTaskPriority(int categoryId, int taskPriorityId, bool trackChanges);
+        Task<TaskPriorityDto> GetTaskPriorityAsync(int categoryId, int taskPriorityId, bool trackChanges);
 
-        TaskPriorityDto CreateTaskPriorityForCategory(int categoryId, TaskPriorityForCreationDto taskPriorityForCreation, bool trackChanges);
+        Task<TaskPriorityDto> CreateTaskPriorityForCategoryAsync(int categoryId, TaskPriorityForCreationDto taskPriorityForCreation, bool trackChanges);
 
-        void DeleteTaskPriorityForCategory(int CategoryId, int id, bool trackChanges);
+        Task DeleteTaskPriorityForCategoryAsync(int CategoryId, int id, bool trackChanges);
 
-        void UpdateTaskPriorityForCategory(int categoryId, int id, TaskPriorityForUpdateDto taskPriorityForUpdate, bool categoryTrackChanges, bool TaskPriorityTrackChanges);
+        Task UpdateTaskPriorityForCategoryAsync(int categoryId, int id, TaskPriorityForUpdateDto taskPriorityForUpdate, bool categoryTrackChanges, bool TaskPriorityTrackChanges);
     }
 }

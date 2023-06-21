@@ -20,5 +20,5 @@ public class RepositoryManager : IRepositoryManager
 
     public ICategoryRepository Category => _categoryRepository.Value;
 
-    public void Save() => _repositoryContext.SaveChanges();
+    public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
 }

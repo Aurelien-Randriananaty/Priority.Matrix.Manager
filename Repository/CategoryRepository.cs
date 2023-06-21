@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,16 +22,17 @@ namespace Repository
 
         public void DeleteCategory(Category category) => Delete(category);
 
-        public IEnumerable<Category> GetAllCategories(bool trackChange) => FindAll(trackChange)
+        public async Task<IEnumerable<Category>> GetAllCategoriesAsync(bool trackChange) => 
+            await FindAll(trackChange)
             .OrderBy(c => c.Id)
-            .ToList();
+            .ToListAsync();
 
-        public IEnumerable<Category> GetByIds(IEnumerable<int> ids, bool trackChanges) =>
-            FindByCondition(x => ids.Contains(x.Id), trackChanges)
-            .ToList();
+        public async Task<IEnumerable<Category>> GetByIdsAsync(IEnumerable<int> ids, bool trackChanges) =>
+            await FindByCondition(x => ids.Contains(x.Id), trackChanges)
+            .ToListAsync();
 
-        public Category GetCategory(int categoryId, bool trackChange) => 
-            FindByCondition(c => c.Id.Equals(categoryId), trackChange)
-            .SingleOrDefault();
+        public async Task<Category> GetCategoryAsync(int categoryId, bool trackChange) => 
+            await FindByCondition(c => c.Id.Equals(categoryId), trackChange)
+            .SingleOrDefaultAsync();
     }
 }

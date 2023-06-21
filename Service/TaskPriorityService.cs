@@ -25,26 +25,26 @@ namespace Service
             _mapper = mapper;
         }
 
-        public IEnumerable<TaskPriorityDto> GetTaskPriorities(int categoryId, bool trackChanges)
+        public async Task<IEnumerable<TaskPriorityDto>> GetTaskPrioritiesAsync(int categoryId, bool trackChanges)
         {
-            var taskPriorities = _repository.TaskPriority.GetTaskPriorities(categoryId, trackChanges);
-            if (taskPriorities is null || taskPriorities.Count() == 0) 
+            var taskPriorities = await _repository.Category.GetCategoryAsync(categoryId, trackChanges);
+            if (taskPriorities is null) 
                 throw new CategoryNotFoundException(categoryId);
 
-            var taskPriorityFromDb = _repository.TaskPriority.GetTaskPriorities(categoryId, trackChanges);
+            var taskPriorityFromDb = await _repository.TaskPriority.GetTaskPrioritiesAsync(categoryId, trackChanges);
 
-            var taskPriorityDto = _mapper.Map<IEnumerable<TaskPriorityDto>>(taskPriorities);
+            var taskPriorityDto = _mapper.Map<IEnumerable<TaskPriorityDto>>(taskPriorityFromDb);
 
             return taskPriorityDto;
         }
 
-        public TaskPriorityDto GetTaskPriority(int categoryId, int taskPriorityId, bool trackChanges)
+        public async Task<TaskPriorityDto> GetTaskPriorityAsync(int categoryId, int taskPriorityId, bool trackChanges)
         {
-            var category = _repository.Category.GetCategory(categoryId, trackChanges);
+            var category = await _repository.Category.GetCategoryAsync(categoryId, trackChanges);
             if (category is null)
                 throw new CategoryNotFoundException(categoryId);
 
-            var taskPriorityDb = _repository.TaskPriority.GetTaskPriority(categoryId, taskPriorityId, trackChanges);
+            var taskPriorityDb = await _repository.TaskPriority.GetTaskPriorityAsync(categoryId, taskPriorityId, trackChanges);
             if(taskPriorityDb is null)
                 throw new TaskPriorityNotFoundException(taskPriorityId);
 
@@ -53,48 +53,48 @@ namespace Service
             return taskPriorityDto;
         }
 
-        public TaskPriorityDto CreateTaskPriorityForCategory(int categoryId, TaskPriorityForCreationDto taskPriorityForCreation, bool trackChanges)
+        public async Task<TaskPriorityDto> CreateTaskPriorityForCategoryAsync(int categoryId, TaskPriorityForCreationDto taskPriorityForCreation, bool trackChanges)
         {
-            var category = _repository.Category.GetCategory(categoryId, trackChanges);
+            var category = await _repository.Category.GetCategoryAsync(categoryId, trackChanges);
             if(category is null) 
                 throw new CategoryNotFoundException(categoryId);
 
             var taskPriorityEntity = _mapper.Map<TaskPriority>(taskPriorityForCreation);
 
             _repository.TaskPriority.CreateTaskPriorityForCategory(categoryId, taskPriorityEntity);
-            _repository.Save();
+            await _repository.SaveAsync();
 
             var emplyeeToReturn = _mapper.Map<TaskPriorityDto>(taskPriorityEntity);
 
             return emplyeeToReturn;
         }
 
-        public void DeleteTaskPriorityForCategory(int CategoryId, int id, bool trackChanges)
+        public async Task DeleteTaskPriorityForCategoryAsync(int CategoryId, int id, bool trackChanges)
         {
-            var categry = _repository.Category.GetCategory(CategoryId, trackChanges);
+            var categry = await _repository.Category.GetCategoryAsync(CategoryId, trackChanges);
             if(categry is null)
                 throw new CategoryNotFoundException(CategoryId);
 
-            var taskPriorityForCategory = _repository.TaskPriority.GetTaskPriority(CategoryId, id, trackChanges);
+            var taskPriorityForCategory = await _repository.TaskPriority.GetTaskPriorityAsync(CategoryId, id, trackChanges);
             if(taskPriorityForCategory is null)
                 throw new TaskPriorityNotFoundException(CategoryId);
 
             _repository.TaskPriority.DeleteTaskPriority(taskPriorityForCategory);
-            _repository.Save();
+            await _repository.SaveAsync();
         }
 
-        public void UpdateTaskPriorityForCategory(int categoryId, int id, TaskPriorityForUpdateDto taskPriorityForUpdate, bool categoryTrackChanges, bool TaskPriorityTrackChanges)
+        public async Task UpdateTaskPriorityForCategoryAsync(int categoryId, int id, TaskPriorityForUpdateDto taskPriorityForUpdate, bool categoryTrackChanges, bool TaskPriorityTrackChanges)
         {
-            var category = _repository.Category.GetCategory(categoryId, categoryTrackChanges);
+            var category = await _repository.Category.GetCategoryAsync(categoryId, categoryTrackChanges);
             if(category is null)
                 throw new CategoryNotFoundException(categoryId);
 
-            var taskPriorityEntity = _repository.TaskPriority.GetTaskPriority(categoryId, id, TaskPriorityTrackChanges);
+            var taskPriorityEntity = await _repository.TaskPriority.GetTaskPriorityAsync(categoryId, id, TaskPriorityTrackChanges);
             if(taskPriorityEntity is null)
                 throw new TaskPriorityNotFoundException(categoryId);
 
             _mapper.Map(taskPriorityForUpdate, taskPriorityEntity);
-            _repository.Save();
+            await _repository.SaveAsync();
         }
     }
 }

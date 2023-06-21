@@ -22,9 +22,9 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         /// <param name="categoryId"></param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult GetTaskPriorityForCategory(int categoryId)
+        public async Task<IActionResult> GetTaskPriorityForCategory(int categoryId)
         {
-            var taskPriorityies = _service.TaskPriorityService.GetTaskPriorities(categoryId, trackChanges: false);
+            var taskPriorityies = await _service.TaskPriorityService.GetTaskPrioritiesAsync(categoryId, trackChanges: false);
 
             return Ok(taskPriorityies);
         }
@@ -36,15 +36,15 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id:int}", Name = "GetTaskPriorityForCategory")]
-        public IActionResult GetTaskPriorityForCategory(int categoryId, int id)
+        public async Task<IActionResult> GetTaskPriorityForCategory(int categoryId, int id)
         {
-            var taskPriority = _service.TaskPriorityService.GetTaskPriority(categoryId, id, trackChanges: false);
+            var taskPriority = await _service.TaskPriorityService.GetTaskPriorityAsync(categoryId, id, trackChanges: false);
 
             return Ok(taskPriority);
         }
 
         [HttpPost]
-        public IActionResult CreateTaskPriorityForCategory(int categoryId, [FromBody] TaskPriorityForCreationDto taskPriority)
+        public async Task<IActionResult> CreateTaskPriorityForCategory(int categoryId, [FromBody] TaskPriorityForCreationDto taskPriority)
         {
             if (taskPriority is null)
                 return BadRequest("TaskPriorityForCreationDto ogject is nulle");
@@ -52,7 +52,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-            var taskPriorityToReturn = _service.TaskPriorityService.CreateTaskPriorityForCategory(categoryId, taskPriority, trackChanges: false);
+            var taskPriorityToReturn = await _service.TaskPriorityService.CreateTaskPriorityForCategoryAsync(categoryId, taskPriority, trackChanges: false);
 
             return CreatedAtRoute("GetTaskPriorityForCategory", new
             {
@@ -62,15 +62,15 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public IActionResult DeteleTaskPriorityForCategory(int categoryId, int id)
+        public async Task<IActionResult> DeteleTaskPriorityForCategory(int categoryId, int id)
         {
-            _service.TaskPriorityService.DeleteTaskPriorityForCategory(categoryId, id, trackChanges: true);
+            await _service.TaskPriorityService.DeleteTaskPriorityForCategoryAsync(categoryId, id, trackChanges: true);
            
             return NoContent();
         }
 
         [HttpPut("{id:int}")]
-        public IActionResult UpdateTaskPriorityForCategory(int categoryId, int id, [FromBody] TaskPriorityForUpdateDto taskPriority)
+        public async Task<IActionResult> UpdateTaskPriorityForCategory(int categoryId, int id, [FromBody] TaskPriorityForUpdateDto taskPriority)
         {
             if (taskPriority is null)
                 return BadRequest("EmployeeForUpdateDto object is null");
@@ -78,7 +78,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
             if(!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-            _service.TaskPriorityService.UpdateTaskPriorityForCategory(categoryId, id, taskPriority, categoryTrackChanges: false, TaskPriorityTrackChanges: true);
+            await _service.TaskPriorityService.UpdateTaskPriorityForCategoryAsync(categoryId, id, taskPriority, categoryTrackChanges: false, TaskPriorityTrackChanges: true);
 
             return NoContent();
         }

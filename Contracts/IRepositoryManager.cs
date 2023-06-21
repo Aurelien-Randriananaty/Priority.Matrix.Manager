@@ -12,6 +12,6 @@ namespace Contracts
 
         ICategoryRepository Category { get; }
 
-        void Save();
+        Task SaveAsync();
     }
 }
