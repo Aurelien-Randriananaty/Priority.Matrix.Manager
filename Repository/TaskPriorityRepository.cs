@@ -17,15 +17,17 @@ namespace Repository
 
         }
 
-        public async Task<PagedList<TaskPriority>> GetTaskPrioritiesAsync(int categoryId, TaskPriorityParameters taskPriorityParameters,bool trackChanges)
+        public async Task<PagedList<TaskPriority>> GetTaskPrioritiesAsync(int categoryId, TaskPriorityParameters taskPriorityParameters, bool trackChanges)
         {
-           var taskPriorities = await FindByCondition(e => e.CategoryID.Equals(categoryId), trackChanges)
-            .OrderBy(e => e.Id)
-            .ToListAsync();
+            var taskPriorities = await FindByCondition(e =>
+                e.CategoryID.Equals(categoryId) &&
+                (e.Hour >= taskPriorityParameters.MinHour && e.Hour <= taskPriorityParameters.MaxMax), trackChanges)
+                 .OrderBy(e => e.Id)
+                 .ToListAsync();
 
             return PagedList<TaskPriority>.ToPagedList(
-                taskPriorities, 
-                taskPriorityParameters.PageNumber, 
+                taskPriorities,
+                taskPriorityParameters.PageNumber,
                 taskPriorityParameters.PageSize);
 
         }

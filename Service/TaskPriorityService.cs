@@ -28,6 +28,8 @@ namespace Service
 
         public async Task<(IEnumerable<TaskPriorityDto> taskPriorities, MetaData metaData)> GetTaskPrioritiesAsync(int categoryId, TaskPriorityParameters taskPriorityParameters,bool trackChanges)
         {
+            if (!taskPriorityParameters.ValidHourRange)
+                throw new MaxHourRangeBadRequestException();
             await CheckIfCategoryExists(categoryId, trackChanges);
 
             var taskPrioritiesWithMetaData = await _repository.TaskPriority.GetTaskPrioritiesAsync(categoryId, taskPriorityParameters,trackChanges);
