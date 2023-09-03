@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Priority.Matrix.Manager.Presentation.ActionFilters;
 using Service.Contract;
 using Shared.DataTransferObjects;
@@ -7,6 +8,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
 {
     [Route("api/categories")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class CategoryController : ControllerBase
     {
         private readonly IServiceManager _service;
@@ -18,6 +20,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         /// </summary>
         /// <returns>retun all categories</returns>
         [HttpGet(Name = "Categories")]
+        //[Authorize]
         public async Task<IActionResult> GetCategories()
         {
             var categories = await _service.CategoryService.GetAllCategoriesAsync(trackChanges: false);
@@ -51,7 +54,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         /// </summary>
         /// <param name="category"></param>
         /// <returns>return category created</returns>
-        [HttpPost]
+        [HttpPost(Name = "CreateCategory")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateCategory([FromBody] CategoryForCreationDto category)
         {
@@ -68,13 +71,20 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
             return NoContent();
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:int}", Name = "EditCategory")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryForUpdateDto category)
         {
             await _service.CategoryService.UpdateCategoryAsync(id, category, trackChanges: true);
 
             return NoContent();
+        }
+
+        [HttpOptions]
+        public IActionResult GetCategoriesOptions()
+        {
+            Response.Headers.Add("Allow", "GET, OPTIONS, POST");
+            return Ok();
         }
     }
 }

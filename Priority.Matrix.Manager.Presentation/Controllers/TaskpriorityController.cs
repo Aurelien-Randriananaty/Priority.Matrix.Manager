@@ -3,16 +3,13 @@ using Priority.Matrix.Manager.Presentation.ActionFilters;
 using Service.Contract;
 using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Priority.Matrix.Manager.Presentation.Controllers
 {
     [Route("api/category/{categoryId}/tasks")]
+    [ApiController]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class TaskpriorityController : ControllerBase
     {
         private readonly IServiceManager _service;
@@ -25,6 +22,8 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         /// <param name="categoryId"></param>
         /// <returns></returns>
         [HttpGet]
+        [HttpHead]
+        [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
         public async Task<IActionResult> GetTaskPrioritiesForCategory(int categoryId, [FromQuery] TaskPriorityParameters taskPriorityParameters)
         {
             var pagesResult = await _service.TaskPriorityService.GetTaskPrioritiesAsync(categoryId, taskPriorityParameters, trackChanges: false);
@@ -46,7 +45,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
             var taskPriority = await _service.TaskPriorityService.GetTaskPriorityAsync(categoryId, id, trackChanges: false);
 
             return Ok(taskPriority);
-        }
+        }        
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,10 @@ using Repository;
 namespace Priority.Matrix.Manager.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20230623123557_AdditionalUserFiledsForRefreshToken")]
+    partial class AdditionalUserFiledsForRefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,12 +92,6 @@ namespace Priority.Matrix.Manager.Migrations
                     b.Property<int?>("Hour")
                         .HasColumnType("int");
 
-                    b.Property<float?>("PosX")
-                        .HasColumnType("real");
-
-                    b.Property<float?>("PosY")
-                        .HasColumnType("real");
-
                     b.Property<int>("TaskCreatedBy")
                         .HasColumnType("int");
 
@@ -114,17 +110,9 @@ namespace Priority.Matrix.Manager.Migrations
                     b.Property<DateTime?>("TaskToSee")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("ZIndex")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryID");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("TaskPriorities");
 
@@ -133,69 +121,68 @@ namespace Priority.Matrix.Manager.Migrations
                         {
                             Id = 1,
                             CategoryID = 1,
-                            CreatedDate = new DateTime(2023, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             Hour = 1,
                             TaskCreatedBy = 1,
                             TaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                             TaskStatus = "To do",
                             TaskTitle = "Title task 1",
-                            TaskToSee = new DateTime(2023, 9, 3, 0, 0, 0, 0, DateTimeKind.Local)
+                            TaskToSee = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
                             Id = 2,
                             CategoryID = 2,
-                            CreatedDate = new DateTime(2023, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             Hour = 2,
                             TaskCreatedBy = 1,
                             TaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                             TaskStatus = "To do",
                             TaskTitle = "Title task 2",
-                            TaskToSee = new DateTime(2023, 9, 3, 0, 0, 0, 0, DateTimeKind.Local)
+                            TaskToSee = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
                             Id = 3,
                             CategoryID = 2,
-                            CreatedDate = new DateTime(2023, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             Hour = 3,
                             TaskCreatedBy = 2,
                             TaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                             TaskStatus = "To do",
                             TaskTitle = "Title task 3",
-                            TaskToSee = new DateTime(2023, 9, 3, 0, 0, 0, 0, DateTimeKind.Local)
+                            TaskToSee = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
                             Id = 4,
                             CategoryID = 3,
-                            CreatedDate = new DateTime(2023, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             Hour = 2,
                             TaskCreatedBy = 2,
                             TaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                             TaskStatus = "To do",
                             TaskTitle = "Title task 4",
-                            TaskToSee = new DateTime(2023, 9, 3, 0, 0, 0, 0, DateTimeKind.Local)
+                            TaskToSee = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Local)
                         },
                         new
                         {
                             Id = 5,
                             CategoryID = 4,
-                            CreatedDate = new DateTime(2023, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedDate = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             Hour = 2,
                             TaskCreatedBy = 2,
                             TaskDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac turpis egestas sed tempus urna et pharetra pharetra massa.",
                             TaskStatus = "To do",
                             TaskTitle = "Title task 5",
-                            TaskToSee = new DateTime(2023, 9, 3, 0, 0, 0, 0, DateTimeKind.Local)
+                            TaskToSee = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 
             modelBuilder.Entity("Entities.Models.User", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("UserId");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -300,15 +287,15 @@ namespace Priority.Matrix.Manager.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d64392cb-a67b-4b20-87c4-a3df4796fb6e",
-                            ConcurrencyStamp = "78d15e91-9916-4b6d-b152-980a1e3ee2ec",
+                            Id = "09326888-e6f4-4ca2-964b-c0e79e11485b",
+                            ConcurrencyStamp = "1265dfd7-b5ce-4bdc-b766-a764eaf5cc96",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "67cb37ff-530c-4866-a518-cba3c33ab106",
-                            ConcurrencyStamp = "640cd992-a84b-4a2a-b5ce-25d60523d18c",
+                            Id = "8bf5cb10-a344-4cc8-a2b0-0f3107ec697e",
+                            ConcurrencyStamp = "5aa45c49-6d15-471d-9432-0e416b1778af",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -428,13 +415,7 @@ namespace Priority.Matrix.Manager.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Models.User", "User")
-                        .WithMany("TaskPriorities")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Category");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -489,11 +470,6 @@ namespace Priority.Matrix.Manager.Migrations
                 });
 
             modelBuilder.Entity("Entities.Models.Category", b =>
-                {
-                    b.Navigation("TaskPriorities");
-                });
-
-            modelBuilder.Entity("Entities.Models.User", b =>
                 {
                     b.Navigation("TaskPriorities");
                 });

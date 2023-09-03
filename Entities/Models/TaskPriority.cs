@@ -13,8 +13,6 @@ public class TaskPriority
     public string? TaskTitle { get; set; }
     [MaxLength(255, ErrorMessage = "Maximum length for the titre is 255 characters")]
     public string? TaskDescription { get; set; }
-    // TO DO: add proprity user to complice this task
-    //public int UserId { get; set; }
     [Required(ErrorMessage = "Task createdBy is a required field")]
     public int TaskCreatedBy { get; set; }
     public DateTime? TaskToSee { get; set; }
@@ -24,4 +22,9 @@ public class TaskPriority
     [ForeignKey(nameof(Category))]
     public int CategoryID { get; set; }
     public Category? Category { get; set; }
+    public string? UserId { get; set; }
+    public User? User { get; set; }
+    public float? PosX { get; set; }
+    public float? PosY { get; set; }
+    public int? ZIndex { get; set; }
 }

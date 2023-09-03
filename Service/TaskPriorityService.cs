@@ -50,6 +50,17 @@ namespace Service
             return taskPriorityDto;
         }
 
+        public async Task<(IEnumerable<TaskPriorityDto> taskPriorities, MetaData metaData)> GetTaskPrioritiesOnlyAsync(bool trackChanges, TaskPriorityParameters taskPriorityParameters)
+        {
+            if (!taskPriorityParameters.ValidHourRange)
+                throw new MaxHourRangeBadRequestException();
+
+            var taskPriorityWithMetaData = await _repository.TaskPriority.GetTaskPrioritiesOnlyAsync(trackChanges, taskPriorityParameters);
+            
+            var taskPriorityDto = _mapper.Map<IEnumerable<TaskPriorityDto>>(taskPriorityWithMetaData);
+            return (taskPriorities: taskPriorityDto, metaData: taskPriorityWithMetaData.MetaData);
+        }
+
         public async Task<TaskPriorityDto> CreateTaskPriorityForCategoryAsync(int categoryId, TaskPriorityForCreationDto taskPriorityForCreation, bool trackChanges)
         {
             await CheckIfCategoryExists(categoryId, trackChanges);
@@ -98,6 +109,6 @@ namespace Service
                 throw new TaskPriorityNotFoundException(categoryId);
 
             return taskPriorityEntity;
-        }
+        }         
     }
 }

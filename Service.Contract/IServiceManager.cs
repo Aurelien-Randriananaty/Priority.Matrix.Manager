@@ -11,5 +11,9 @@ namespace Service.Contract
         ICategoryService CategoryService { get; }
 
         ITaskPriorityService TaskPriorityService { get; }
+
+        IAuthenticationService AuthenticationService { get; }
+
+        IUserService UserService { get; }
     }
 }
