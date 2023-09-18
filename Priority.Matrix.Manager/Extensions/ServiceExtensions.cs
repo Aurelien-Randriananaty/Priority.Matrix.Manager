@@ -23,7 +23,10 @@ namespace Priority.Matrix.Manager.Extensions
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder =>
-                builder.WithOrigins("http://localhost:3000")
+                builder.WithOrigins("http://localhost:3000",
+                                           "http://www.infrassurtask.front.fr",
+                                           "http://www.infrassurtask.frontaurel"
+                )
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .WithExposedHeaders("X-Pagination"));
@@ -145,6 +148,30 @@ namespace Priority.Matrix.Manager.Extensions
                 {
                     Title = "Infrassur Manger API",
                     Version = "v2"
+                });
+
+                s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Place to add JWT with Bearer",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                s.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                            },
+                            Name = "Bearer",
+                        },
+                        new List<string>()
+                    }
                 });
             });
         }

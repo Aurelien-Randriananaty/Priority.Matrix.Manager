@@ -9,6 +9,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
     [Route("api/categories")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly IServiceManager _service;

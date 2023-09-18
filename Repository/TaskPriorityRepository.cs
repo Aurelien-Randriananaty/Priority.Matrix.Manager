@@ -33,6 +33,10 @@ namespace Repository
             await FindByCondition(t => t.CategoryID.Equals(categoryId) && t.Id.Equals(taskPriorityId), trackChanges)
             .FirstOrDefaultAsync();
 
+        public async Task<TaskPriority> GetTaskPriorityWithCategoryIdAsync(int taskPriorityId, bool trackChanges) =>
+            await FindByCondition(t => t.Id.Equals(taskPriorityId), trackChanges)
+            .FirstOrDefaultAsync();
+
         public void CreateTaskPriorityForCategory(int categoryId, TaskPriority taskPriority)
         {
             taskPriority.CategoryID = categoryId;

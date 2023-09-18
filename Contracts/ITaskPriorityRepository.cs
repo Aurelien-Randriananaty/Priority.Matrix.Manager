@@ -16,6 +16,8 @@ namespace Contracts
 
         Task<TaskPriority> GetTaskPriorityAsync(int categoryId, int taskPriorityId, bool tackChanges);
 
+        Task<TaskPriority> GetTaskPriorityWithCategoryIdAsync(int taskPriorityId, bool trackChanges);
+
         void CreateTaskPriorityForCategory(int  categoryId, TaskPriority taskPriority);
 
         void DeleteTaskPriority(TaskPriority taskPriority);

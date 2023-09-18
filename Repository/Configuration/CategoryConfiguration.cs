@@ -24,20 +24,20 @@ namespace Repository.Configuration
                      new Category
                      {
                          Id = 2,
-                         CategoryName = "Important, mais pas urgent",
-                         CategoryCode = "important-mais-pas-urgent ",
+                         CategoryName = "Pas important, mais urgent",
+                         CategoryCode = "pas-important-mais-urgent ",
                      },
                     new Category
                     {
                         Id=3,
                         CategoryName = "Important, mais pas urgent",
-                        CategoryCode = "pas-important-mais-urgent",
+                        CategoryCode = "important-mais-pas-urgent",
                     },
                     new Category
                     {
                         Id =4,
                         CategoryName = "Ni important, ni urgent",
-                        CategoryCode = "Ni-important-ni-urgent",
+                        CategoryCode = "ni-important-ni-urgent",
                     }
                 );
         }

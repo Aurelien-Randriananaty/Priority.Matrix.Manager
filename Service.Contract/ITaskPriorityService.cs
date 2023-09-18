@@ -21,5 +21,6 @@ namespace Service.Contract
         Task DeleteTaskPriorityForCategoryAsync(int CategoryId, int id, bool trackChanges);
 
         Task UpdateTaskPriorityForCategoryAsync(int categoryId, int id, TaskPriorityForUpdateDto taskPriorityForUpdate, bool categoryTrackChanges, bool TaskPriorityTrackChanges);
+        Task UpdateTaskPriorityAsync(int categoryId, int id, TaskPriorityForUpdateDto taskPriorityForUpdate, bool categoryTrackChanges, bool TaskPriorityTrackChanges);
     }
 }

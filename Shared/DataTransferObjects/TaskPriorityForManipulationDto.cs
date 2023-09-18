@@ -21,6 +21,10 @@ namespace Shared.DataTransferObjects
         [Range(0, int.MaxValue, ErrorMessage = "Age is required and it can't be lower than equal 0")]
         public int? Hour { get; init; }
         public string? TaskStatus { get; init; }
+        public int? CategoryId { get; init; }
         public Guid? UserId { get; init; }
+        public float? PosX { get; init; }
+        public float? PosY { get; init; }
+        public int? ZIndex { get; init; }
     }
 }

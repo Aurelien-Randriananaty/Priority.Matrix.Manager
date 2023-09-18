@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contract;
 using Shared.RequestFeatures;
 using System.Text.Json;
@@ -8,6 +9,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
     [Route("api/tasks")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
+    [Authorize]
     public class TaskallController : ControllerBase
     {
         private readonly IServiceManager _service;
