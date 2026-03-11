@@ -2,11 +2,6 @@
 using Priority.Matrix.Manager.Presentation.ActionFilters;
 using Service.Contract;
 using Shared.DataTransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Priority.Matrix.Manager.Presentation.Controllers;
 

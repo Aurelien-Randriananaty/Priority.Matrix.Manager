@@ -70,7 +70,7 @@ public sealed class AuthenticationService : IAuthenticationService
         return await CreateToken(populateExp: false);
     }
 
-        public async Task<TokenDto> CreateToken(bool populateExp)
+    public async Task<TokenDto> CreateToken(bool populateExp)
     {
         var signingCredentials = GetSigningCredentials();
         var claims = await GetClaims();

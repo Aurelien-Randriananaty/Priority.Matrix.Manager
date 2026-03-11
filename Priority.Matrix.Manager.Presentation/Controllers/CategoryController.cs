@@ -30,10 +30,10 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Get a category by id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>return a category</returns>
         [HttpGet("{id:int}", Name = "CategoryById")]
         public async Task<IActionResult> GetCategory(int id)
         {
@@ -85,6 +85,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         public IActionResult GetCategoriesOptions()
         {
             Response.Headers.Add("Allow", "GET, OPTIONS, POST");
+
             return Ok();
         }
     }
