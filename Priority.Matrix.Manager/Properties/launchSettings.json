@@ -5,7 +5,7 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "SECRET": "InfrassurMangerSecretKey"
+        "SECRET": "gsijM0NZ1fD5VT60wusyp7W9CM3vY2X21JPLddEY7sSx9Dx/xz+VrZH8BUbQcmfEhYPvbQfuo4+q9axSnVRidw=="
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7236;http://localhost:5082"
@@ -14,7 +14,8 @@
       "commandName": "IISExpress",
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SECRET": "gsijM0NZ1fD5VT60wusyp7W9CM3vY2X21JPLddEY7sSx9Dx/xz+VrZH8BUbQcmfEhYPvbQfuo4+q9axSnVRidw=="
       }
     }
   },
