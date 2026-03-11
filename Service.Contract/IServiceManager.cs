@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Service.Contract
+﻿namespace Service.Contract
 {
     public interface IServiceManager
     {
         ICategoryService CategoryService { get; }
 
         ITaskPriorityService TaskPriorityService { get; }
+
+        IAuthenticationService AuthenticationService { get; }
+
+        IUserService UserService { get; }
     }
 }

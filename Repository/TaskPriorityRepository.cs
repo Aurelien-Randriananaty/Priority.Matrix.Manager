@@ -2,11 +2,7 @@
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using Shared.RequestFeatures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repository.Extensions;
 
 namespace Repository
 {
@@ -20,8 +16,9 @@ namespace Repository
         public async Task<PagedList<TaskPriority>> GetTaskPrioritiesAsync(int categoryId, TaskPriorityParameters taskPriorityParameters, bool trackChanges)
         {
             var taskPriorities = await FindByCondition(e =>
-                e.CategoryID.Equals(categoryId) &&
-                (e.Hour >= taskPriorityParameters.MinHour && e.Hour <= taskPriorityParameters.MaxMax), trackChanges)
+                e.CategoryID.Equals(categoryId), trackChanges)
+                .FilterTaskPriorities(taskPriorityParameters.MinHour, taskPriorityParameters.MaxHour)
+                .Search(taskPriorityParameters.SearchTerm)
                  .OrderBy(e => e.Id)
                  .ToListAsync();
 
@@ -36,6 +33,10 @@ namespace Repository
             await FindByCondition(t => t.CategoryID.Equals(categoryId) && t.Id.Equals(taskPriorityId), trackChanges)
             .FirstOrDefaultAsync();
 
+        public async Task<TaskPriority> GetTaskPriorityWithCategoryIdAsync(int taskPriorityId, bool trackChanges) =>
+            await FindByCondition(t => t.Id.Equals(taskPriorityId), trackChanges)
+            .FirstOrDefaultAsync();
+
         public void CreateTaskPriorityForCategory(int categoryId, TaskPriority taskPriority)
         {
             taskPriority.CategoryID = categoryId;
@@ -43,5 +44,21 @@ namespace Repository
         }
 
         public void DeleteTaskPriority(TaskPriority taskPriority) => Delete(taskPriority);
+
+        public async Task<PagedList<TaskPriority>> GetTaskPrioritiesOnlyAsync(bool trackChange, TaskPriorityParameters taskPriorityParameters)
+        {
+            var taskPriorities = await FindAll(trackChange)
+                .Include(tp => tp.Category)
+                .Include(tp => tp.User)
+                .FilterTaskPriorities(taskPriorityParameters.MinHour, taskPriorityParameters.MaxHour)
+                .Search(taskPriorityParameters.SearchTerm)
+                .OrderBy(t => t.Id)
+                .ToListAsync();
+
+            return PagedList<TaskPriority>.ToPagedList(
+                taskPriorities,
+                taskPriorityParameters.PageNumber,
+                taskPriorityParameters.PageSize);
+        }
     }
 }

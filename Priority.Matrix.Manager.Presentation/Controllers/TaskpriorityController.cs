@@ -1,18 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Priority.Matrix.Manager.Presentation.ActionFilters;
 using Service.Contract;
 using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Priority.Matrix.Manager.Presentation.Controllers
 {
     [Route("api/category/{categoryId}/tasks")]
+    [ApiController]
+    [ApiExplorerSettings(GroupName = "v1")]
+    [Authorize]
     public class TaskpriorityController : ControllerBase
     {
         private readonly IServiceManager _service;
@@ -25,6 +24,8 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         /// <param name="categoryId"></param>
         /// <returns></returns>
         [HttpGet]
+        [HttpHead]
+        [ServiceFilter(typeof(ValidateMediaTypeAttribute))]
         public async Task<IActionResult> GetTaskPrioritiesForCategory(int categoryId, [FromQuery] TaskPriorityParameters taskPriorityParameters)
         {
             var pagesResult = await _service.TaskPriorityService.GetTaskPrioritiesAsync(categoryId, taskPriorityParameters, trackChanges: false);
@@ -46,7 +47,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
             var taskPriority = await _service.TaskPriorityService.GetTaskPriorityAsync(categoryId, id, trackChanges: false);
 
             return Ok(taskPriority);
-        }
+        }        
 
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
@@ -71,18 +72,33 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
 
         [HttpPut("{id:int}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> UpdateTaskPriorityForCategory(int categoryId, int id, [FromBody] TaskPriorityForUpdateDto taskPriority)
+        public async Task<IActionResult> UpdateTaskPriorityAsync(int categoryId, int id, [FromBody] TaskPriorityForUpdateDto taskPriority)
         {
             if (taskPriority is null)
                 return BadRequest("EmployeeForUpdateDto object is null");
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-            await _service.TaskPriorityService.UpdateTaskPriorityForCategoryAsync(categoryId, id, taskPriority, categoryTrackChanges: false, TaskPriorityTrackChanges: true);
+            await _service.TaskPriorityService.UpdateTaskPriorityAsync(categoryId, id, taskPriority, categoryTrackChanges: false, TaskPriorityTrackChanges: true);
 
             return NoContent();
         }
+
+        //[HttpPut("{id:int}")]
+        //[ServiceFilter(typeof(ValidationFilterAttribute))]
+        //public async Task<IActionResult> UpdateTaskPriorityForCategory(int categoryId, int id, [FromBody] TaskPriorityForUpdateDto taskPriority)
+        //{
+        //    if (taskPriority is null)
+        //        return BadRequest("EmployeeForUpdateDto object is null");
+
+        //    if(!ModelState.IsValid)
+        //        return UnprocessableEntity(ModelState);
+
+        //    await _service.TaskPriorityService.UpdateTaskPriorityForCategoryAsync(categoryId, id, taskPriority, categoryTrackChanges: false, TaskPriorityTrackChanges: true);
+
+        //    return NoContent();
+        //}
     }
 
 }

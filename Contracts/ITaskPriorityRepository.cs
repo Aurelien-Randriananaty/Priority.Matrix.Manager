@@ -12,7 +12,11 @@ namespace Contracts
     {
         Task<PagedList<TaskPriority>> GetTaskPrioritiesAsync(int categoryId, TaskPriorityParameters taskPriorityParameters, bool trackChanges);
 
+        Task<PagedList<TaskPriority>> GetTaskPrioritiesOnlyAsync(bool trackChange, TaskPriorityParameters taskPriorityParameters);
+
         Task<TaskPriority> GetTaskPriorityAsync(int categoryId, int taskPriorityId, bool tackChanges);
+
+        Task<TaskPriority> GetTaskPriorityWithCategoryIdAsync(int taskPriorityId, bool trackChanges);
 
         void CreateTaskPriorityForCategory(int  categoryId, TaskPriority taskPriority);
 

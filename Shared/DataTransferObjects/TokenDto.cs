@@ -4,9 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CompanyEmployees.Presentation
-{
-    public static class AssemblyReference
-    {
-    }
-}
+namespace Shared.DataTransferObjects;
+
+public record TokenDto(string AccessToken, string RefreshToken);

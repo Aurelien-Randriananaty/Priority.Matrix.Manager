@@ -1,16 +1,14 @@
-﻿using Shared.DataTransferObjects;
+﻿
+using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Contract
 {
     public interface ITaskPriorityService
     {
         Task<(IEnumerable<TaskPriorityDto> taskPriorities, MetaData metaData)> GetTaskPrioritiesAsync(int categoryId, TaskPriorityParameters taskPriorityParameters, bool trackChanges);
+
+        Task<(IEnumerable<TaskPriorityDto> taskPriorities, MetaData metaData)> GetTaskPrioritiesOnlyAsync(bool trackChanges, TaskPriorityParameters taskPriorityParameters);
 
         Task<TaskPriorityDto> GetTaskPriorityAsync(int categoryId, int taskPriorityId, bool trackChanges);
 
@@ -19,5 +17,6 @@ namespace Service.Contract
         Task DeleteTaskPriorityForCategoryAsync(int CategoryId, int id, bool trackChanges);
 
         Task UpdateTaskPriorityForCategoryAsync(int categoryId, int id, TaskPriorityForUpdateDto taskPriorityForUpdate, bool categoryTrackChanges, bool TaskPriorityTrackChanges);
+        Task UpdateTaskPriorityAsync(int categoryId, int id, TaskPriorityForUpdateDto taskPriorityForUpdate, bool categoryTrackChanges, bool TaskPriorityTrackChanges);
     }
 }

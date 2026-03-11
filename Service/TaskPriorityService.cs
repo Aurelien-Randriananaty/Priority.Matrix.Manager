@@ -50,6 +50,17 @@ namespace Service
             return taskPriorityDto;
         }
 
+        public async Task<(IEnumerable<TaskPriorityDto> taskPriorities, MetaData metaData)> GetTaskPrioritiesOnlyAsync(bool trackChanges, TaskPriorityParameters taskPriorityParameters)
+        {
+            if (!taskPriorityParameters.ValidHourRange)
+                throw new MaxHourRangeBadRequestException();
+
+            var taskPriorityWithMetaData = await _repository.TaskPriority.GetTaskPrioritiesOnlyAsync(trackChanges, taskPriorityParameters);
+            
+            var taskPriorityDto = _mapper.Map<IEnumerable<TaskPriorityDto>>(taskPriorityWithMetaData);
+            return (taskPriorities: taskPriorityDto, metaData: taskPriorityWithMetaData.MetaData);
+        }
+
         public async Task<TaskPriorityDto> CreateTaskPriorityForCategoryAsync(int categoryId, TaskPriorityForCreationDto taskPriorityForCreation, bool trackChanges)
         {
             await CheckIfCategoryExists(categoryId, trackChanges);
@@ -84,11 +95,30 @@ namespace Service
             await _repository.SaveAsync();
         }
 
+        public async Task UpdateTaskPriorityAsync(int categoryId, int id, TaskPriorityForUpdateDto taskPriorityForUpdate, bool categoryTrackChanges, bool TaskPriorityTrackChanges)
+        {
+            await CheckIfCategoryExists(categoryId, categoryTrackChanges);
+
+            var taskPriorityEntity = await GetTaskPriorityAndCheckIfExists(id, TaskPriorityTrackChanges);
+
+            _mapper.Map(taskPriorityForUpdate, taskPriorityEntity);
+            await _repository.SaveAsync();
+        }
+
         private async Task CheckIfCategoryExists(int categoryId, bool trackChanges)
         {
             var category = await _repository.Category.GetCategoryAsync(categoryId, trackChanges);
             if (category is null)
                 throw new CategoryNotFoundException(categoryId);
+        }
+
+        private async Task<TaskPriority> GetTaskPriorityAndCheckIfExists(int id, bool TaskPriorityTrackChanges)
+        {
+            var taskPriorityEntity = await _repository.TaskPriority.GetTaskPriorityWithCategoryIdAsync(id, TaskPriorityTrackChanges);
+            if (taskPriorityEntity is null)
+                throw new TaskPriorityNotFoundException(id);
+
+            return taskPriorityEntity;
         }
 
         private async Task<TaskPriority> GetTaskPriorityForCategoryAndCheckIfExists(int categoryId, int id, bool TaskPriorityTrackChanges)
@@ -99,5 +129,6 @@ namespace Service
 
             return taskPriorityEntity;
         }
+        
     }
 }
