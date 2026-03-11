@@ -85,6 +85,7 @@ namespace Priority.Matrix.Manager.Presentation.Controllers
         public IActionResult GetCategoriesOptions()
         {
             Response.Headers.Add("Allow", "GET, OPTIONS, POST");
+
             return Ok();
         }
     }
