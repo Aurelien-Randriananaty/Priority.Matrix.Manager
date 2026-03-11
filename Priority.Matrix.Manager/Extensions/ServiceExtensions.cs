@@ -25,7 +25,8 @@ namespace Priority.Matrix.Manager.Extensions
                 options.AddPolicy("CorsPolicy", builder =>
                 builder.WithOrigins("http://localhost:3000",
                                            "http://www.infrassurtask.front.fr",
-                                           "http://www.infrassurtask.frontaurel"
+                                           "http://www.infrassurtask.frontaurel",
+                                           "https://localhost:7236"
                 )
                 .AllowAnyMethod()
                 .AllowAnyHeader()
